@@ -44,7 +44,7 @@ app.get("/employees/random", (req, res) => {
   const randomEmployee = employees[randomIndex];
 
   //sends it back as aJSON
-  res.json(randEmployee);
+  res.json(randomEmployee);
 });
 
 //register the GET /employees route
