@@ -7,6 +7,10 @@ import express from "express";
 //pulls in the placeholder data array
 import employees from "#db/employees";
 
+//added to prevent same emplyee twice in a row.
+//track the last random index returned
+let lastRandomIndex = null;
+
 //this creates the app instance which will be used to define routes
 const app = express();
 
@@ -35,15 +39,16 @@ app.get("/", (req, res) => {
 
 //this gets a random employee
 // this needs to be before the /:id route because Express matches routes in the order you register them.
-//
+// changed this to a do while statement to make sure the new random pick is different than the last to avoid issues with the testing.
 app.get("/employees/random", (req, res) => {
-  //picks a random index from 0 to employees.length -1
-  const randomIndex = Math.floor(Math.random() * employees.length);
+  let randomIndex;
+  // re-roll if only have >1 employee and got the same index as last time
+  do {
+    randomIndex = Math.floor(Math.random() * employees.length);
+  } while (employees.length > 1 && randomIndex === lastRandomIndex);
+  lastRandomIndex = randomIndex;
 
-  //grabs the random employee calculated in the previous step
   const randomEmployee = employees[randomIndex];
-
-  //sends it back as aJSON
   res.json(randomEmployee);
 });
 
