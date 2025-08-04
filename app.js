@@ -27,7 +27,7 @@ export default app;
 // "/" is the path or the "root" of my API
 //res.send('Hello employees!') sends that string as the HTTP response bopdy and automaticaly sets the appropriate header/status
 app.get("/", (req, res) => {
-  res.send("Hello employess!");
+  res.send("Hello employees!");
 });
 
 //http headers are key-values pairs sent at the start of a request or response that describe the metadata about the message. They are like the envelope info on a letter. who it is from, how big it is, what format it is in.
